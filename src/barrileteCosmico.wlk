@@ -1,6 +1,17 @@
 /** First Wollok example */
-object wollok {
-	method howAreYou() {
-		return 'I am Wolloktastic!'
+object barrileteCosmico {
+	const destinos = []
+	const usuarios = []
+	method obtenerDestinosImportantes() {
+		return 
+	}
+	method aplicarDescuentos() {
+		
+	}
+	method esExtrema() {
+		return 
+	}
+	method cartaDestinos() {
+		return destinos
 	}
 }
