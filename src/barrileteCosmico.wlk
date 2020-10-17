@@ -15,3 +15,36 @@ object barrileteCosmico {
 		return destinos
 	}
 }
+
+class Usuario {
+	var nombre
+	const destinosConocidos = []
+	var saldo
+	const usuariosSeguidos = []
+	const usuariosSeguidores = []
+	
+	method cargarSaldo(_saldo){
+		
+	}
+	method saldo() {
+		return saldo
+	}
+	method volarHaciaDestino(nuevoDestino){
+		
+	}
+	method obtenerKilometrosRecorridos(){
+		
+	}
+	method seguirUsuario(nuevoSeguido){
+		
+	}
+	method agregarSeguidor(){
+		
+	}
+	method puedeVolarA(nuevoDestino){
+		
+	}
+}
+class Destino {
+	
+}
