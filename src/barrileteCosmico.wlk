@@ -1,53 +1,64 @@
-/** First Wollok example */
 object barrileteCosmico {
+
 	const destinos = []
 	const usuarios = []
+
 	method obtenerDestinosImportantes() {
-		return 
+		return
 	}
+
 	method aplicarDescuentos() {
-		
 	}
+
 	method esExtrema() {
-		return 
+		return
 	}
+
 	method cartaDestinos() {
 		return destinos
 	}
+
 }
 
 class Usuario {
+
 	const property nombre
 	const destinosConocidos = []
 	var saldo
 	const usuariosSeguidos = []
 	const usuariosSeguidores = []
-	
-	method cargarSaldo(_saldo){
+
+	// const property equipajeDeclarado = []
+	method cargarSaldo(_saldo) {
 		saldo = saldo + _saldo
 	}
-	method saldo() {
-		return saldo
-	}
-	method volarHaciaDestino(nuevoDestino){
-		if ( self.puedeVolarA(nuevoDestino) ){
+
+	method saldo() = saldo
+
+	method volarHaciaDestino(nuevoDestino) {
+		if (self.puedeVolarA(nuevoDestino)) {
 			saldo = saldo - nuevoDestino.precio()
 			destinosConocidos.add(nuevoDestino)
 		}
 	}
-	method obtenerKilometrosRecorridos(){
-		return destinosConocidos.sum( {destino =>  destino.precio()*0.1 } )
-	}
-	method seguirUsuario(nuevoSeguido){
-		usuariosSeguidos.add(nuevoSeguido)
-	}
-	method agregarSeguidor(nuevoSeguidor){
-		usuariosSeguidores.add(nuevoSeguidor)
-	}
-	method puedeVolarA(nuevoDestino){
-		return self.saldo() > nuevoDestino.precio()
-	}
+
+	method obtenerKilometrosRecorridos() = destinosConocidos.sum({ destino => destino.precio() * 0.1 })
+
+	method seguirUsuario(nuevoSeguido) = usuariosSeguidos.add(nuevoSeguido)
+
+	method agregarSeguidor(nuevoSeguidor) = usuariosSeguidores.add(nuevoSeguidor)
+
+	method puedeVolarA(nuevoDestino) = self.saldo() > nuevoDestino.precio()
+
 }
+
 class Destino {
-	
+
+	const property nombre
+	const equipajeImprescindible = []
+	var property precio
+
+	method sugerenciasViaje() = equipajeImprescindible
+
 }
+
