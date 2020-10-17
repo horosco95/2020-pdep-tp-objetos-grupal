@@ -4,14 +4,15 @@ object barrileteCosmico {
 	const usuarios = []
 
 	method obtenerDestinosImportantes() {
-		return
+		return destinos.filter({destino => destino.precio() > 2000})
 	}
 
-	method aplicarDescuentos() {
+	method aplicarDescuentos(porcentaje) {
+		destinos.forEach({destino => destino.aplicarDescuento(porcentaje)})
 	}
 
 	method esExtrema() {
-		return
+		return destinos.any({destino => destino.esPeligroso()})
 	}
 
 	method cartaDestinos() {
@@ -59,6 +60,15 @@ class Destino {
 	var property precio
 
 	method sugerenciasViaje() = equipajeImprescindible
+	
+	method esPeligroso(){
+		return equipajeImprescindible.any({elemento => elemento.substring(0,6) == "Vacuna"})
+	}
+	
+	method aplicarDescuento(porcentaje){
+		equipajeImprescindible.add("Certificado de descuento");
+		precio = (precio / 100) * porcentaje;
+	}
 
 }
 
