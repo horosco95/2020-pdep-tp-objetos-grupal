@@ -1,6 +1,86 @@
+import barrileteCosmico.*
 
-test "testX" {
+test "obtener la carta de destinos de barrilete cosmico" {
 
-	assert.that(true)
+	var garlicSea = new Destino(nombre = "Garlic's Sea", precio = 2500);
+	garlicSea.agregarEquipajeRequerido("Caña de pescar");
+	garlicSea.agregarEquipajeRequerido("Piloto");
+	
+	var silverSea = new Destino(nombre = "Silver's Sea", precio = 1350);
+	silverSea.agregarEquipajeRequerido("Protector Solar");
+	silverSea.agregarEquipajeRequerido("Equipo de Buceo");
+	
+	var lastToninas = new Destino(nombre = "Last Toninas", precio = 3500);
+	lastToninas.agregarEquipajeRequerido("Vacuna gripal");
+	lastToninas.agregarEquipajeRequerido("Vacuna B");
+	lastToninas.agregarEquipajeRequerido("Necronomicon");
+	
+	var goodAirs = new Destino(nombre = "Good Airs", precio = 1500);
+	goodAirs.agregarEquipajeRequerido("Cervaza");
+	goodAirs.agregarEquipajeRequerido("Protector solar");
+	
+	barrileteCosmico.agregarDestino(garlicSea);
+	barrileteCosmico.agregarDestino(silverSea);
+	barrileteCosmico.agregarDestino(lastToninas);
+	barrileteCosmico.agregarDestino(goodAirs);
 
+	assert.equals(4, barrileteCosmico.cartaDestinos().size());
+
+}
+
+test "aplicar descuento a un destino del barrilete cosmico" {
+	
+	var garlicSea = new Destino(nombre = "Garlic's Sea", precio = 2500);
+	garlicSea.agregarEquipajeRequerido("Caña de pescar");
+	garlicSea.agregarEquipajeRequerido("Piloto");
+	
+	barrileteCosmico.agregarDestino(garlicSea);
+	barrileteCosmico.aplicarDescuento(25);
+	
+	assert.equals(1875, barrileteCosmico.cartaDestinos().first().precio());
+}
+
+test "la empresa es extrema" {
+	
+	var silverSea = new Destino(nombre = "Silver's Sea", precio = 1350);
+	silverSea.agregarEquipajeRequerido("Protector Solar");
+	silverSea.agregarEquipajeRequerido("Equipo de Buceo");
+	
+	var lastToninas = new Destino(nombre = "Last Toninas", precio = 3500);
+	lastToninas.agregarEquipajeRequerido("Vacuna gripal");
+	lastToninas.agregarEquipajeRequerido("Vacuna B");
+	lastToninas.agregarEquipajeRequerido("Necronomicon");
+	
+	var goodAirs = new Destino(nombre = "Good Airs", precio = 1500);
+	goodAirs.agregarEquipajeRequerido("Cervaza");
+	goodAirs.agregarEquipajeRequerido("Protector solar");
+	
+	barrileteCosmico.agregarDestino(silverSea);
+	barrileteCosmico.agregarDestino(lastToninas);
+	barrileteCosmico.agregarDestino(goodAirs);
+	
+	assert.equals(true, barrileteCosmico.esExtrema());
+}
+
+test "obtener destino destacado" {
+	
+	var silverSea = new Destino(nombre = "Silver's Sea", precio = 1350);
+	silverSea.agregarEquipajeRequerido("Protector Solar");
+	silverSea.agregarEquipajeRequerido("Equipo de Buceo");
+	
+	var lastToninas = new Destino(nombre = "Last Toninas", precio = 3500);
+	lastToninas.agregarEquipajeRequerido("Vacuna gripal");
+	lastToninas.agregarEquipajeRequerido("Vacuna B");
+	lastToninas.agregarEquipajeRequerido("Necronomicon");
+	
+	var goodAirs = new Destino(nombre = "Good Airs", precio = 1500);
+	goodAirs.agregarEquipajeRequerido("Cervaza");
+	goodAirs.agregarEquipajeRequerido("Protector solar");
+	
+	barrileteCosmico.agregarDestino(silverSea);
+	barrileteCosmico.agregarDestino(lastToninas);
+	barrileteCosmico.agregarDestino(goodAirs);
+	
+	assert.equals("Last Toninas", barrileteCosmico.obtenerDestinosImportantes().first().nombre());
+	
 }
