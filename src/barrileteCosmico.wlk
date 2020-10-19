@@ -28,7 +28,7 @@ object barrileteCosmico {
 class Usuario {
 
 	const property nombre
-	const destinosConocidos = []
+	const property destinosConocidos = []
 	var saldo
 	const usuariosSeguidos = []
 	const usuariosSeguidores = []

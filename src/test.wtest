@@ -84,3 +84,82 @@ test "obtener destino destacado" {
 	assert.equals("Last Toninas", barrileteCosmico.obtenerDestinosImportantes().first().nombre());
 	
 }
+
+test "Dado un conjunto de destinos que no son peligrosos y que opera la empresa, la misma no es extrema." {
+	
+	const silverSea = new Destino(nombre = "Silver's Sea", precio = 1350, equipajeImprescindible = ["Protector Solar","Equipo de Buceo"] )
+	
+	const goodAirs = new Destino(nombre = "Good Airs", precio = 1500, equipajeImprescindible = ["Cerveza","Protector solar"] )
+	
+	barrileteCosmico.agregarDestino(silverSea)
+	barrileteCosmico.agregarDestino(goodAirs)
+	
+	assert.notThat( barrileteCosmico.esExtrema() )
+	
+}
+
+test "Un usuario de la empresa, con saldo suficiente puede volar hacia un destino" {
+	
+	const silverSea = new Destino(nombre = "Silver's Sea", precio = 1350 , equipajeImprescindible = ["Protector Solar","Equipo de Buceo"] )
+	
+	const goodAirs = new Destino(nombre = "Good Airs", precio = 1500 , equipajeImprescindible = ["Cerveza","Protector solar"] )
+	
+	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [goodAirs], saldo = 4000 )
+	
+	assert.that( pHari.puedeVolarA(silverSea) )
+	
+}
+
+test "Un usuario de la empresa, con saldo insuficiente no puede volar hacia un destino" {
+	
+	const silverSea = new Destino(nombre = "Silver's Sea", precio = 1350, equipajeImprescindible = ["Protector Solar","Equipo de Buceo"] )
+	
+	const goodAirs = new Destino(nombre = "Good Airs", precio = 1500, equipajeImprescindible = ["Cerveza","Protector solar"] )
+	
+	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [silverSea], saldo = 500)
+	
+	assert.notThat( pHari.puedeVolarA(goodAirs) )
+	
+}
+
+test "Un usuario de la empresa, vuela hacia un destino efectivamente." {
+	
+	const goodAirs = new Destino(nombre = "Good Airs", precio = 1500, equipajeImprescindible = ["Cerveza","Protector solar"] )
+	
+	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [], saldo = 5000)
+	pHari.volarHaciaDestino(goodAirs)
+	assert.equals( pHari.destinosConocidos() , [goodAirs] )
+	assert.equals( pHari.saldo(), 3500 )
+	
+}
+
+test "Un usuario de la empresa, decide volar hacia un destino y no cumple con condicion, por lo que no se ejecuta el vuelo." {
+	
+	const goodAirs = new Destino(nombre = "Good Airs", precio = 1500, equipajeImprescindible = ["Cerveza","Protector solar"] )
+	
+	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [], saldo = 500)
+	pHari.volarHaciaDestino(goodAirs)
+	assert.notEquals( pHari.destinosConocidos() , [goodAirs] )
+	assert.equals( pHari.saldo(), 500 )
+	
+}
+
+test "Calcular kilometros recorridos por parte de un usuario con destinos conocidos se realiza efectivamente." {
+	
+	const silverSea = new Destino(nombre = "Silver's Sea", precio = 1350, equipajeImprescindible = ["Protector Solar","Equipo de Buceo"] )
+	
+	const goodAirs = new Destino(nombre = "Good Airs", precio = 1500, equipajeImprescindible = ["Cerveza","Protector solar"] )
+	
+	const pHari = new Usuario(nombre = "Pablo Hari",destinosConocidos = [silverSea,goodAirs], saldo = 9000)
+	
+	assert.equals( pHari.obtenerKilometrosRecorridos(), 285 )
+	
+}
+
+test "Calcular kilometros recorridos por parte de un usuario sin destinos conocidos retorna cero" {
+	
+	const pHari = new Usuario(nombre = "Pablo Hari",destinosConocidos = [], saldo = 9000)
+	
+	assert.equals( pHari.obtenerKilometrosRecorridos(), 0 )
+	
+}
