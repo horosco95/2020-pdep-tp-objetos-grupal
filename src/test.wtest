@@ -1,6 +1,6 @@
 import barrileteCosmico.*
 
-test "obtener la carta de destinos de barrilete cosmico" {
+test "Dado una empresa y una lista de destinos cargada, devolver el listado de destinos cargados" {
 
 	var garlicSea = new Destino(nombre = "Garlic's Sea", precio = 2500);
 	garlicSea.agregarEquipajeRequerido("Caña de pescar");
@@ -28,7 +28,7 @@ test "obtener la carta de destinos de barrilete cosmico" {
 
 }
 
-test "aplicar descuento a un destino del barrilete cosmico" {
+test "Dado un descuento del 25% aplicado a un destino del barrilete cosmico, se mostrara el saldo modificado y el certificado de descuento aplicado" {
 	
 	var garlicSea = new Destino(nombre = "Garlic's Sea", precio = 2500);
 	garlicSea.agregarEquipajeRequerido("Caña de pescar");
@@ -38,9 +38,10 @@ test "aplicar descuento a un destino del barrilete cosmico" {
 	barrileteCosmico.aplicarDescuento(25);
 	
 	assert.equals(1875, barrileteCosmico.cartaDestinos().first().precio());
+	assert.equals(true, barrileteCosmico.cartaDestinos().any({destino => destino.sugerenciasViaje().contains("Certificado de descuento")}));
 }
 
-test "la empresa es extrema" {
+test "Dado un conjunto de destinos en donde uno es peligroso y que opera la empresa, la misma es extrema." {
 	
 	var silverSea = new Destino(nombre = "Silver's Sea", precio = 1350);
 	silverSea.agregarEquipajeRequerido("Protector Solar");
@@ -62,7 +63,7 @@ test "la empresa es extrema" {
 	assert.equals(true, barrileteCosmico.esExtrema());
 }
 
-test "obtener destino destacado" {
+test "Dada una empresa y un listado de destinos cargados en donde uno es destacado, devuelve el destino destacado" {
 	
 	var silverSea = new Destino(nombre = "Silver's Sea", precio = 1350);
 	silverSea.agregarEquipajeRequerido("Protector Solar");
