@@ -24,7 +24,7 @@ test "Dado una empresa y una lista de destinos cargada, devolver el listado de d
 	barrileteCosmico.agregarDestino(lastToninas);
 	barrileteCosmico.agregarDestino(goodAirs);
 
-	assert.equals(4, barrileteCosmico.cartaDestinos().size());
+	assert.equals(["Garlic's Sea","Silver's Sea","Last Toninas","Good Airs"], barrileteCosmico.cartaDestinos());
 
 }
 
@@ -34,11 +34,21 @@ test "Dado un descuento del 25% aplicado a un destino del barrilete cosmico, se 
 	garlicSea.agregarEquipajeRequerido("Caña de pescar");
 	garlicSea.agregarEquipajeRequerido("Piloto");
 	
+	var lastToninas = new Destino(nombre = "Last Toninas", precio = 3500);
+	lastToninas.agregarEquipajeRequerido("Vacuna gripal");
+	lastToninas.agregarEquipajeRequerido("Vacuna B");
+	lastToninas.agregarEquipajeRequerido("Necronomicon");
+	
 	barrileteCosmico.agregarDestino(garlicSea);
+	barrileteCosmico.agregarDestino(lastToninas);
 	barrileteCosmico.aplicarDescuento(25);
 	
-	assert.equals(1875, barrileteCosmico.cartaDestinos().first().precio());
-	assert.equals(true, barrileteCosmico.cartaDestinos().any({destino => destino.sugerenciasViaje().contains("Certificado de descuento")}));
+	assert.equals(1875, garlicSea.precio());
+	assert.that(garlicSea.sugerenciasViaje().contains("Certificado de descuento"))
+	
+	assert.equals(2625, lastToninas.precio());
+	assert.that(lastToninas.sugerenciasViaje().contains("Certificado de descuento"))
+	
 }
 
 test "Dado un conjunto de destinos en donde uno es peligroso y que opera la empresa, la misma es extrema." {

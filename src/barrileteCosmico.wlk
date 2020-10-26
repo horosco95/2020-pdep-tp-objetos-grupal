@@ -1,7 +1,6 @@
 object barrileteCosmico {
 
 	const destinos = []
-	const usuarios = []
 
 	method agregarDestino(destino){
 		destinos.add(destino);
@@ -20,7 +19,7 @@ object barrileteCosmico {
 	}
 
 	method cartaDestinos() {
-		return destinos
+		return destinos.map({destino => destino.nombre()})
 	}
 
 }
@@ -31,7 +30,6 @@ class Usuario {
 	const property destinosConocidos = []
 	var saldo
 	const usuariosSeguidos = []
-	const usuariosSeguidores = []
 
 	// const property equipajeDeclarado = []
 	method cargarSaldo(_saldo) {
@@ -49,9 +47,11 @@ class Usuario {
 
 	method obtenerKilometrosRecorridos() = destinosConocidos.sum({ destino => destino.precio() * 0.1 })
 
-	method seguirUsuario(nuevoSeguido) = usuariosSeguidos.add(nuevoSeguido)
-
-	method agregarSeguidor(nuevoSeguidor) = usuariosSeguidores.add(nuevoSeguidor)
+	method seguirUsuario(nuevoSeguido){
+		usuariosSeguidos.add(nuevoSeguido).asSet();
+		//nuevoSeguido.usuariosSeguidos.asSet(self);c
+		nuevoSeguido.seguirUsuario(self);
+	}
 
 	method puedeVolarA(nuevoDestino) = self.saldo() > nuevoDestino.precio()
 
