@@ -29,9 +29,8 @@ class Usuario {
 	const property nombre
 	const property destinosConocidos = []
 	var saldo
-	const usuariosSeguidos = []
+	const property usuariosSeguidos = []
 
-	// const property equipajeDeclarado = []
 	method cargarSaldo(_saldo) {
 		saldo = saldo + _saldo
 	}
@@ -48,9 +47,12 @@ class Usuario {
 	method obtenerKilometrosRecorridos() = destinosConocidos.sum({ destino => destino.precio() * 0.1 })
 
 	method seguirUsuario(nuevoSeguido){
-		usuariosSeguidos.add(nuevoSeguido).asSet();
-		//nuevoSeguido.usuariosSeguidos.asSet(self);c
-		nuevoSeguido.seguirUsuario(self);
+		self.agregarAListaSeguidos(nuevoSeguido)
+		nuevoSeguido.agregarAListaSeguidos(self)
+	}
+	
+	method agregarAListaSeguidos(nuevoSeguido){
+		usuariosSeguidos.add(nuevoSeguido)
 	}
 
 	method puedeVolarA(nuevoDestino) = self.saldo() > nuevoDestino.precio()

@@ -80,3 +80,12 @@ test "Calcular kilometros recorridos por parte de un usuario sin destinos conoci
 	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [], saldo = 9000)
 	assert.equals(pHari.obtenerKilometrosRecorridos(), 0)
 }
+
+test "Un usuario de la empresa, agrega a otro a su lista de seguidos efectivamente" {
+	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [], saldo = 9000)
+	const anonymous = new Usuario(nombre = "Anonymous", destinosConocidos = [], saldo = 0)
+	
+	pHari.seguirUsuario(anonymous)
+	assert.that( pHari.usuariosSeguidos().equals([anonymous]) )
+	assert.that( anonymous.usuariosSeguidos().equals([pHari]) )
+}
