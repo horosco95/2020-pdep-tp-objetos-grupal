@@ -1,176 +1,82 @@
 import barrileteCosmico.*
 
+//Instanciación de destinos:
+const garlicSea = new Destino(nombre = "Garlic's Sea", precio = 2500, equipajeImprescindible = [ "Caña de pescar", "Piloto" ])
+
+const silverSea = new Destino(nombre = "Silver's Sea", precio = 1350, equipajeImprescindible = [ "Protector solar", "Equipo de Buceo" ])
+
+const lastToninas = new Destino(nombre = "Last Toninas", precio = 3500, equipajeImprescindible = [ "Vacuna grupal", "Vacuna B", "Necronomicon" ])
+
+const goodAirs = new Destino(nombre = "Good Airs", precio = 1500, equipajeImprescindible = [ "Cerveza", "Protector solar" ])
+
 test "Dado una empresa y una lista de destinos cargada, devolver el listado de destinos cargados" {
-
-	var garlicSea = new Destino(nombre = "Garlic's Sea", precio = 2500);
-	garlicSea.agregarEquipajeRequerido("Caña de pescar");
-	garlicSea.agregarEquipajeRequerido("Piloto");
-	
-	var silverSea = new Destino(nombre = "Silver's Sea", precio = 1350);
-	silverSea.agregarEquipajeRequerido("Protector Solar");
-	silverSea.agregarEquipajeRequerido("Equipo de Buceo");
-	
-	var lastToninas = new Destino(nombre = "Last Toninas", precio = 3500);
-	lastToninas.agregarEquipajeRequerido("Vacuna gripal");
-	lastToninas.agregarEquipajeRequerido("Vacuna B");
-	lastToninas.agregarEquipajeRequerido("Necronomicon");
-	
-	var goodAirs = new Destino(nombre = "Good Airs", precio = 1500);
-	goodAirs.agregarEquipajeRequerido("Cervaza");
-	goodAirs.agregarEquipajeRequerido("Protector solar");
-	
-	barrileteCosmico.agregarDestino(garlicSea);
-	barrileteCosmico.agregarDestino(silverSea);
-	barrileteCosmico.agregarDestino(lastToninas);
-	barrileteCosmico.agregarDestino(goodAirs);
-
-	assert.equals(["Garlic's Sea","Silver's Sea","Last Toninas","Good Airs"], barrileteCosmico.cartaDestinos());
-
+	barrileteCosmico.agregarDestino(garlicSea)
+	barrileteCosmico.agregarDestino(silverSea)
+	barrileteCosmico.agregarDestino(lastToninas)
+	barrileteCosmico.agregarDestino(goodAirs)
+	assert.equals([ "Garlic's Sea", "Silver's Sea", "Last Toninas", "Good Airs" ], barrileteCosmico.cartaDestinos())
 }
 
 test "Dado un descuento del 25% aplicado a un destino del barrilete cosmico, se mostrara el saldo modificado y el certificado de descuento aplicado" {
-	
-	var garlicSea = new Destino(nombre = "Garlic's Sea", precio = 2500);
-	garlicSea.agregarEquipajeRequerido("Caña de pescar");
-	garlicSea.agregarEquipajeRequerido("Piloto");
-	
-	var lastToninas = new Destino(nombre = "Last Toninas", precio = 3500);
-	lastToninas.agregarEquipajeRequerido("Vacuna gripal");
-	lastToninas.agregarEquipajeRequerido("Vacuna B");
-	lastToninas.agregarEquipajeRequerido("Necronomicon");
-	
-	barrileteCosmico.agregarDestino(garlicSea);
-	barrileteCosmico.agregarDestino(lastToninas);
-	barrileteCosmico.aplicarDescuento(25);
-	
-	assert.equals(1875, garlicSea.precio());
+	barrileteCosmico.agregarDestino(garlicSea)
+	barrileteCosmico.agregarDestino(lastToninas)
+	barrileteCosmico.aplicarDescuento(25)
+	assert.equals(1875, garlicSea.precio())
 	assert.that(garlicSea.sugerenciasViaje().contains("Certificado de descuento"))
-	
-	assert.equals(2625, lastToninas.precio());
+	assert.equals(2625, lastToninas.precio())
 	assert.that(lastToninas.sugerenciasViaje().contains("Certificado de descuento"))
-	
 }
 
 test "Dado un conjunto de destinos en donde uno es peligroso y que opera la empresa, la misma es extrema." {
-	
-	var silverSea = new Destino(nombre = "Silver's Sea", precio = 1350);
-	silverSea.agregarEquipajeRequerido("Protector Solar");
-	silverSea.agregarEquipajeRequerido("Equipo de Buceo");
-	
-	var lastToninas = new Destino(nombre = "Last Toninas", precio = 3500);
-	lastToninas.agregarEquipajeRequerido("Vacuna gripal");
-	lastToninas.agregarEquipajeRequerido("Vacuna B");
-	lastToninas.agregarEquipajeRequerido("Necronomicon");
-	
-	var goodAirs = new Destino(nombre = "Good Airs", precio = 1500);
-	goodAirs.agregarEquipajeRequerido("Cervaza");
-	goodAirs.agregarEquipajeRequerido("Protector solar");
-	
-	barrileteCosmico.agregarDestino(silverSea);
-	barrileteCosmico.agregarDestino(lastToninas);
-	barrileteCosmico.agregarDestino(goodAirs);
-	
-	assert.equals(true, barrileteCosmico.esExtrema());
+	barrileteCosmico.agregarDestino(silverSea)
+	barrileteCosmico.agregarDestino(lastToninas)
+	barrileteCosmico.agregarDestino(goodAirs)
+	assert.equals(true, barrileteCosmico.esExtrema())
 }
 
 test "Dada una empresa y un listado de destinos cargados en donde uno es destacado, devuelve el destino destacado" {
-	
-	var silverSea = new Destino(nombre = "Silver's Sea", precio = 1350);
-	silverSea.agregarEquipajeRequerido("Protector Solar");
-	silverSea.agregarEquipajeRequerido("Equipo de Buceo");
-	
-	var lastToninas = new Destino(nombre = "Last Toninas", precio = 3500);
-	lastToninas.agregarEquipajeRequerido("Vacuna gripal");
-	lastToninas.agregarEquipajeRequerido("Vacuna B");
-	lastToninas.agregarEquipajeRequerido("Necronomicon");
-	
-	var goodAirs = new Destino(nombre = "Good Airs", precio = 1500);
-	goodAirs.agregarEquipajeRequerido("Cervaza");
-	goodAirs.agregarEquipajeRequerido("Protector solar");
-	
-	barrileteCosmico.agregarDestino(silverSea);
-	barrileteCosmico.agregarDestino(lastToninas);
-	barrileteCosmico.agregarDestino(goodAirs);
-	
-	assert.equals("Last Toninas", barrileteCosmico.obtenerDestinosImportantes().first().nombre());
-	
+	barrileteCosmico.agregarDestino(silverSea)
+	barrileteCosmico.agregarDestino(lastToninas)
+	barrileteCosmico.agregarDestino(goodAirs)
+	assert.equals([lastToninas], barrileteCosmico.obtenerDestinosImportantes() )
 }
 
 test "Dado un conjunto de destinos que no son peligrosos y que opera la empresa, la misma no es extrema." {
-	
-	const silverSea = new Destino(nombre = "Silver's Sea", precio = 1350, equipajeImprescindible = ["Protector Solar","Equipo de Buceo"] )
-	
-	const goodAirs = new Destino(nombre = "Good Airs", precio = 1500, equipajeImprescindible = ["Cerveza","Protector solar"] )
-	
 	barrileteCosmico.agregarDestino(silverSea)
 	barrileteCosmico.agregarDestino(goodAirs)
-	
-	assert.notThat( barrileteCosmico.esExtrema() )
-	
+	assert.notThat(barrileteCosmico.esExtrema())
 }
 
 test "Un usuario de la empresa, con saldo suficiente puede volar hacia un destino" {
-	
-	const silverSea = new Destino(nombre = "Silver's Sea", precio = 1350 , equipajeImprescindible = ["Protector Solar","Equipo de Buceo"] )
-	
-	const goodAirs = new Destino(nombre = "Good Airs", precio = 1500 , equipajeImprescindible = ["Cerveza","Protector solar"] )
-	
-	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [goodAirs], saldo = 4000 )
-	
-	assert.that( pHari.puedeVolarA(silverSea) )
-	
+	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [ goodAirs ], saldo = 4000)
+	assert.that(pHari.puedeVolarA(silverSea))
 }
 
 test "Un usuario de la empresa, con saldo insuficiente no puede volar hacia un destino" {
-	
-	const silverSea = new Destino(nombre = "Silver's Sea", precio = 1350, equipajeImprescindible = ["Protector Solar","Equipo de Buceo"] )
-	
-	const goodAirs = new Destino(nombre = "Good Airs", precio = 1500, equipajeImprescindible = ["Cerveza","Protector solar"] )
-	
-	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [silverSea], saldo = 500)
-	
-	assert.notThat( pHari.puedeVolarA(goodAirs) )
-	
+	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [ silverSea ], saldo = 500)
+	assert.notThat(pHari.puedeVolarA(goodAirs))
 }
 
 test "Un usuario de la empresa, vuela hacia un destino efectivamente." {
-	
-	const goodAirs = new Destino(nombre = "Good Airs", precio = 1500, equipajeImprescindible = ["Cerveza","Protector solar"] )
-	
 	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [], saldo = 5000)
 	pHari.volarHaciaDestino(goodAirs)
-	assert.equals( pHari.destinosConocidos() , [goodAirs] )
-	assert.equals( pHari.saldo(), 3500 )
-	
+	assert.equals(pHari.destinosConocidos(), [ goodAirs ])
+	assert.equals(pHari.saldo(), 3500)
 }
 
 test "Un usuario de la empresa, decide volar hacia un destino y no cumple con condicion, por lo que no se ejecuta el vuelo." {
-	
-	const goodAirs = new Destino(nombre = "Good Airs", precio = 1500, equipajeImprescindible = ["Cerveza","Protector solar"] )
-	
 	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [], saldo = 500)
 	pHari.volarHaciaDestino(goodAirs)
-	assert.notEquals( pHari.destinosConocidos() , [goodAirs] )
-	assert.equals( pHari.saldo(), 500 )
-	
+	assert.notEquals(pHari.destinosConocidos(), [ goodAirs ])
+	assert.equals(pHari.saldo(), 500)
 }
 
 test "Calcular kilometros recorridos por parte de un usuario con destinos conocidos se realiza efectivamente." {
-	
-	const silverSea = new Destino(nombre = "Silver's Sea", precio = 1350, equipajeImprescindible = ["Protector Solar","Equipo de Buceo"] )
-	
-	const goodAirs = new Destino(nombre = "Good Airs", precio = 1500, equipajeImprescindible = ["Cerveza","Protector solar"] )
-	
-	const pHari = new Usuario(nombre = "Pablo Hari",destinosConocidos = [silverSea,goodAirs], saldo = 9000)
-	
-	assert.equals( pHari.obtenerKilometrosRecorridos(), 285 )
-	
+	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [ silverSea, goodAirs ], saldo = 9000)
+	assert.equals(pHari.obtenerKilometrosRecorridos(), 285)
 }
 
 test "Calcular kilometros recorridos por parte de un usuario sin destinos conocidos retorna cero" {
-	
-	const pHari = new Usuario(nombre = "Pablo Hari",destinosConocidos = [], saldo = 9000)
-	
-	assert.equals( pHari.obtenerKilometrosRecorridos(), 0 )
-	
+	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [], saldo = 9000)
+	assert.equals(pHari.obtenerKilometrosRecorridos(), 0)
 }
