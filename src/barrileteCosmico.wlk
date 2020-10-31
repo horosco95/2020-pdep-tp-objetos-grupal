@@ -21,6 +21,10 @@ object barrileteCosmico {
 	method cartaDestinos() {
 		return destinos.map({destino => destino.nombre()})
 	}
+	
+	method armarViaje(nuevoUsuario,nuevoDestino,medioDeTransporte){
+		nuevoUsuario.volarHaciaDestino(nuevoDestino,medioDeTransporte)		
+	}
 
 }
 
@@ -30,6 +34,8 @@ class Usuario {
 	const property destinosConocidos = []
 	var saldo
 	const property usuariosSeguidos = []
+	var property origen
+	var property kilometrosRecorridos = 0
 
 	method cargarSaldo(_saldo) {
 		saldo = saldo + _saldo
@@ -37,14 +43,16 @@ class Usuario {
 
 	method saldo() = saldo
 
-	method volarHaciaDestino(nuevoDestino) {
-		if (self.puedeVolarA(nuevoDestino)) {
-			saldo = saldo - nuevoDestino.precio()
+	method volarHaciaDestino(nuevoDestino,medioDeTransporte) {
+		if (self.puedeVolarA(nuevoDestino,medioDeTransporte)) {
+			saldo = saldo - self.precioViaje(nuevoDestino,medioDeTransporte)
+			kilometrosRecorridos += origen.calcularDistanciaAOtro(nuevoDestino)
+			self.origen(nuevoDestino)
 			destinosConocidos.add(nuevoDestino)
 		}
 	}
 
-	method obtenerKilometrosRecorridos() = destinosConocidos.sum({ destino => destino.precio() * 0.1 })
+	method obtenerKilometrosRecorridos() = kilometrosRecorridos
 
 	method seguirUsuario(nuevoSeguido){
 		self.agregarAListaSeguidos(nuevoSeguido)
@@ -55,7 +63,9 @@ class Usuario {
 		usuariosSeguidos.add(nuevoSeguido)
 	}
 
-	method puedeVolarA(nuevoDestino) = self.saldo() > nuevoDestino.precio()
+	method puedeVolarA(nuevoDestino,medioDeTransporte) = self.saldo() >= self.precioViaje(nuevoDestino,medioDeTransporte)
+
+	method precioViaje(nuevoDestino,medioDeTransporte) = nuevoDestino.precio() + origen.calcularDistanciaAOtro(nuevoDestino) * medioDeTransporte.precioPorKilometro()
 
 }
 
@@ -64,6 +74,7 @@ class Destino {
 	const property nombre
 	const equipajeImprescindible = []
 	var property precio
+	const property kilometro
 	
 	method agregarEquipajeRequerido(equipaje){
 		equipajeImprescindible.add(equipaje);
@@ -79,6 +90,23 @@ class Destino {
 		equipajeImprescindible.add("Certificado de descuento");
 		precio = precio - ((precio / 100) * porcentaje);
 	}
+	
+	method calcularDistanciaAOtro(nuevoDestino){
+		const res = kilometro - nuevoDestino.kilometro()
+		return res.abs()
+	}
 
+}
+
+object micro {
+	const property precioPorKilometro = 5
+}
+
+object avion {
+	const property precioPorKilometro = 15
+}
+
+object combi {
+	const property precioPorKilometro = 10
 }
 
