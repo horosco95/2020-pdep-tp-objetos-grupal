@@ -83,7 +83,7 @@ class Destino {
 	method sugerenciasViaje() = equipajeImprescindible
 	
 	method esPeligroso(){
-		return equipajeImprescindible.any({elemento => elemento.substring(0,6) == "Vacuna"})
+		return equipajeImprescindible.any({elemento => elemento.words().contains("Vacuna")})
 	}
 	
 	method aplicarDescuento(porcentaje){
