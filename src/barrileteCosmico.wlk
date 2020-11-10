@@ -32,10 +32,10 @@ class Usuario {
 
 	const property nombre
 	const property destinosConocidos = []
-	var saldo
+	var saldo = 0
 	const property usuariosSeguidos = []
 	var property origen
-	var property kilometrosRecorridos = 0
+	var kilometrosRecorridos = 0
 
 	method cargarSaldo(_saldo) {
 		saldo = saldo + _saldo
@@ -69,7 +69,7 @@ class Usuario {
 
 }
 
-class Destino {
+class Localidad {
 
 	const property nombre
 	const equipajeImprescindible = []
