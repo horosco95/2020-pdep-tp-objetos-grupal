@@ -23,7 +23,7 @@ object barrileteCosmico {
 	}
 	
 	method armarViaje(nuevoUsuario,nuevoDestino,medioDeTransporte){
-		nuevoUsuario.volarHaciaDestino(nuevoDestino,medioDeTransporte)		
+		nuevoUsuario.viajarHacia(nuevoDestino,medioDeTransporte)		
 	}
 
 }
@@ -43,8 +43,8 @@ class Usuario {
 
 	method saldo() = saldo
 
-	method volarHaciaDestino(nuevoDestino,medioDeTransporte) {
-		if (self.puedeVolarA(nuevoDestino,medioDeTransporte)) {
+	method viajarHacia(nuevoDestino,medioDeTransporte) {
+		if (self.puedeViajarA(nuevoDestino,medioDeTransporte)) {
 			saldo = saldo - self.precioViaje(nuevoDestino,medioDeTransporte)
 			kilometrosRecorridos += origen.calcularDistanciaAOtro(nuevoDestino)
 			self.origen(nuevoDestino)
@@ -63,7 +63,7 @@ class Usuario {
 		usuariosSeguidos.add(nuevoSeguido)
 	}
 
-	method puedeVolarA(nuevoDestino,medioDeTransporte) = self.saldo() >= self.precioViaje(nuevoDestino,medioDeTransporte)
+	method puedeViajarA(nuevoDestino,medioDeTransporte) = self.saldo() >= self.precioViaje(nuevoDestino,medioDeTransporte)
 
 	method precioViaje(nuevoDestino,medioDeTransporte) = nuevoDestino.precio() + origen.calcularDistanciaAOtro(nuevoDestino) * medioDeTransporte.precioPorKilometro()
 

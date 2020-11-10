@@ -47,33 +47,33 @@ test "Dado un conjunto de destinos que no son peligrosos y que opera la empresa,
 	assert.notThat(barrileteCosmico.esExtrema())
 }
 
-test "Un usuario de la empresa, con saldo suficiente puede volar hacia un destino" {
+test "Un usuario de la empresa, con saldo suficiente puede viajar hacia un destino" {
 	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [ goodAirs ], saldo = 4000, origen = goodAirs)
-	assert.that(pHari.puedeVolarA(silverSea, avion))
+	assert.that(pHari.puedeViajarA(silverSea, avion))
 }
 
-test "Un usuario de la empresa, con saldo insuficiente no puede volar hacia un destino" {
+test "Un usuario de la empresa, con saldo insuficiente no puede viajar hacia un destino" {
 	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [ silverSea ], saldo = 500, origen = silverSea)
-	assert.notThat(pHari.puedeVolarA(goodAirs, avion))
+	assert.notThat(pHari.puedeViajarA(goodAirs, avion))
 }
 
-test "Un usuario de la empresa, vuela hacia un destino efectivamente." {
+test "Un usuario de la empresa, viaja hacia un destino efectivamente." {
 	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [ silverSea ], saldo = 5000, origen = silverSea)
-	pHari.volarHaciaDestino(goodAirs, avion)
+	pHari.viajarHacia(goodAirs, avion)
 	assert.equals(pHari.destinosConocidos(), [ silverSea, goodAirs ])
 	assert.equals(pHari.saldo(), 3200)
 }
 
-test "Un usuario de la empresa, decide volar hacia un destino y no cumple con condicion, por lo que no se ejecuta el vuelo." {
+test "Un usuario de la empresa, decide viajar hacia un destino y no cumple con condicion, por lo que no se ejecuta el vuelo." {
 	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [ silverSea ], saldo = 500, origen = silverSea )
-	pHari.volarHaciaDestino(goodAirs, avion)
+	pHari.viajarHacia(goodAirs, avion)
 	assert.notEquals(pHari.destinosConocidos(), [ silverSea, goodAirs ])
 	assert.equals(pHari.saldo(), 500)
 }
 
 test "Calcular kilometros recorridos por parte de un usuario con destinos conocidos se realiza efectivamente." {
 	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [ silverSea ], saldo = 9000, origen = silverSea)
-	pHari.volarHaciaDestino(goodAirs, avion)
+	pHari.viajarHacia(goodAirs, avion)
 	assert.equals(pHari.obtenerKilometrosRecorridos(), 20)
 }
 
