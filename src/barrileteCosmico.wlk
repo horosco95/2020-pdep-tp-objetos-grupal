@@ -1,6 +1,7 @@
 object barrileteCosmico {
 
 	const destinos = []
+	const mediosTransporte = [micro,combi,avion]
 
 	method agregarDestino(destino){
 		destinos.add(destino);
@@ -22,8 +23,9 @@ object barrileteCosmico {
 		return destinos.map({destino => destino.nombre()})
 	}
 	
-	method armarViaje(nuevoUsuario,nuevoDestino,medioDeTransporte){
-		nuevoUsuario.viajarHacia(nuevoDestino,medioDeTransporte)		
+	method armarViaje(nuevoUsuario,nuevoDestino){ //TODO agregar eleccion aleatoria de medio de transporte
+		const transporteAleatorio = mediosTransporte.anyOne() 
+		nuevoUsuario.viajarHacia(nuevoDestino,transporteAleatorio)
 	}
 
 }
@@ -92,21 +94,21 @@ class Localidad {
 	}
 	
 	method calcularDistanciaAOtro(nuevoDestino){
-		const res = kilometro - nuevoDestino.kilometro()
-		return res.abs()
+		const distancia = kilometro - nuevoDestino.kilometro()
+		return distancia.abs()
 	}
 
 }
 
 object micro {
-	const property precioPorKilometro = 5
+	method precioPorKilometro() = 5
 }
 
 object avion {
-	const property precioPorKilometro = 15
+	method precioPorKilometro() = 15
 }
 
 object combi {
-	const property precioPorKilometro = 10
+	method precioPorKilometro() = 10
 }
 

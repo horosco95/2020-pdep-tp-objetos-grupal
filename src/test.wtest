@@ -31,14 +31,14 @@ test "Dado un conjunto de destinos en donde uno es peligroso y que opera la empr
 	barrileteCosmico.agregarDestino(silverSea)
 	barrileteCosmico.agregarDestino(lastToninas)
 	barrileteCosmico.agregarDestino(goodAirs)
-	assert.equals(true, barrileteCosmico.esExtrema())
+	assert.that(barrileteCosmico.esExtrema())
 }
 
 test "Dada una empresa y un listado de destinos cargados en donde uno es destacado, devuelve el destino destacado" {
 	barrileteCosmico.agregarDestino(silverSea)
 	barrileteCosmico.agregarDestino(lastToninas)
 	barrileteCosmico.agregarDestino(goodAirs)
-	assert.equals([lastToninas], barrileteCosmico.obtenerDestinosImportantes() )
+	assert.equals([lastToninas], barrileteCosmico.obtenerDestinosImportantes())
 }
 
 test "Dado un conjunto de destinos que no son peligrosos y que opera la empresa, la misma no es extrema." {
@@ -91,17 +91,17 @@ test "Un usuario de la empresa, agrega a otro a su lista de seguidos efectivamen
 	assert.that( anonymous.usuariosSeguidos().equals([pHari]) )
 }
 // test agregados 2da parte
-test "La empresa puede armar un viaje de un usuario, definiendo un destino y un medio de transporte de forma efectiva" {
+test "La empresa puede armar un viaje de un usuario, definiendo un destino y un medio de transporte aleatorio de forma efectiva" {
 	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [], saldo = 5000, origen = lastToninas)
-	barrileteCosmico.armarViaje(pHari, goodAirs, micro)
-	assert.equals( goodAirs, pHari.origen() )
-	assert.equals( 3450, pHari.saldo() )
+	barrileteCosmico.armarViaje(pHari, goodAirs)
+	assert.notEquals( lastToninas, pHari.origen() )
+	assert.notEquals( 5000, pHari.saldo() )
 }
 
-test "La empresa no puede armar un viaje de un usuario, definiendo un destino y un medio de transporte" {
+test "La empresa no puede armar un viaje de un usuario que no tiene saldo suficiente, definiendo un destino y un medio de transporte aleatorio" {
 	const pHari = new Usuario(nombre = "Pablo Hari", destinosConocidos = [], saldo = 100, origen = lastToninas)
-	barrileteCosmico.armarViaje(pHari, goodAirs, micro)
-	assert.notEquals( goodAirs, pHari.origen() )
+	barrileteCosmico.armarViaje(pHari, goodAirs)
+	assert.equals( lastToninas, pHari.origen() )
 	assert.equals( 100, pHari.saldo() )
 }
 
